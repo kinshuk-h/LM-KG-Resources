@@ -125,6 +125,6 @@ def remove_abbreviation(data):
         str: Text with expanded abbreviations.
     """
     # Riya Payal
-    for abbr, expansion in constants.ABBREVIATION_DICT:
+    for abbr, expansion in constants.ABBREVIATION_DICT.items():
         data = abbr.sub(expansion, data)
     return data.strip()
