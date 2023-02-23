@@ -1,0 +1,3 @@
+[submodule "datasets/AILA-2019"]
+	path = datasets/AILA-2019
+	url = https://github.com/Law-AI/aila-2019-dataset
