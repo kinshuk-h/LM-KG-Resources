@@ -28,9 +28,9 @@ def preprocess_data(
     if lowercase:
         data = basic.convert_to_lowercase(data)
         # convert data to string
-    #expand contradictions
+    #expand contractions
     if expand_contractions:
-        data = basic.expand_contradictions(str(data))
+        data = basic.expand_contractions(str(data))
     # remove special characters
     if remove_special:
         data = basic.remove_special_characters(data)
