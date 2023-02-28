@@ -21,8 +21,12 @@ def split_paragraphs(data):
         Split paragraphs
         return: paragraphs
     """
-    paragraphs = data.split('\n')
-    return paragraphs
+    para_start = None
+    for _match in constants.PARA_DEMARCATOR.finditer(data):
+        if para_start is not None:
+            yield constants.SPACE.sub(" ", data[para_start:_match.start()].strip())
+        para_start = _match.end()
+    yield constants.SPACE.sub(r"\s+", " ", data[para_start or 0:].strip())
 
 def convert_to_lowercase(data):
     #convert string to lowercase
@@ -102,18 +106,17 @@ def lemmatization(data):
         new_text = new_text + " " + lemmatizer.lemmatize(w)
     return new_text
 
-def expand_contradictions(data):
+def expand_contractions(data):
     """
-        Expand contradictions
-        return: data without contradictions
+        Expand contractions
+        return: data without contractions
     """
     # Checking for whether the given token matches with the Key & replacing word with key's value.
     # Check whether Word is in list_Of_tokens or not.
     # If Word is present in both dictionary & list_Of_tokens, replace that word with the key value.
-    return ' '.join(
-        constants.CONTRACTION_DICT.get(word, word)
-        for word in word_tokenize(data)
-    )
+    for contraction, expansion in constants.CONTRACTION_DICT.items():
+        data = contraction.sub(expansion, data)
+    return data.strip()
 
 def remove_abbreviation(data):
     """ Removes abbreviations present in source text.
