@@ -26,7 +26,7 @@ def split_paragraphs(data):
         if para_start is not None:
             yield constants.SPACE.sub(" ", data[para_start:_match.start()].strip())
         para_start = _match.end()
-    yield constants.SPACE.sub(r"\s+", " ", data[para_start or 0:].strip())
+    yield constants.SPACE.sub(" ", data[para_start or 0:].strip())
 
 def convert_to_lowercase(data):
     #convert string to lowercase
